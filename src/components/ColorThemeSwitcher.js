@@ -7,7 +7,7 @@ const ColorThemeSwitcher = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [currentTheme, setCurrentTheme] = useState('lightBlue');
   const themes = [
-    { name: 'lightBlue', primary: '#00d8ff', secondary: '#FFFFFF' }, 
+    { name: 'lightBlue', primary: '#FFFFFF', secondary: '#FFFFFF' }, 
     { name: 'purple', primary: '#8A2BE2', secondary: '#1F1C26' },
     { name: 'green', primary: '#00FA9A', secondary: '#131D13' },
     { name: 'orange', primary: '#FFA500', secondary: '#001200' },
