@@ -6,6 +6,8 @@
   --input-bg: rgba(255, 255, 255, 0.03);
 }
 
+
+
 .contact-section {
   padding: 100px 24px;
   color: var(--text-primary);
@@ -261,6 +263,29 @@ textarea{
   animation: pulse 2s infinite;
 }
 
+.error-message {
+  color: red;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.success-message {
+  color: green;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.form-group.error input,
+.form-group.error textarea {
+  border-color: red;
+}
+
+.error-text {
+  color: red;
+  font-size: 0.8em;
+  margin-top: 5px;
+}
+
 @keyframes pulse {
   0% {
     transform: scale(1);
@@ -281,6 +306,9 @@ textarea{
   .contact-section {
     padding: 120px 40px;
   }
+  .contact-form-wrapper{
+    padding-right: 35px;
+  }
 
   .form-row {
     grid-template-columns: 1fr 1fr;
@@ -293,3 +321,14 @@ textarea{
     gap: 60px;
   }
 }
+
+@media(max-width:500px){
+  .contact-form-wrapper{
+    max-width: 400px;
+  }
+}
+
+
+
+
+

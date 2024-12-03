@@ -16,7 +16,7 @@
     max-height: 100vh;
     overflow-x: hidden;
     overflow-y: hidden;
-    box-sizing: border-box; /* Ensure padding is included in the element's width */
+    box-sizing: border-box;
 }
 
 .timeline-section.fade-in {
