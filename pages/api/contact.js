@@ -1,12 +1,9 @@
-// api/contact.js
-
-import { IncomingMessage, ServerResponse } from 'http';
 import * as emailjs from 'emailjs-com';
 
-export default async function handler(req = IncomingMessage, res = ServerResponse) {
+export default async function handler(req, res) {
   if (req.method === 'POST') {
     try {
-      // Retrieve form data from the request body
+      // Parse form data from the request body
       const { firstName, lastName, email, message } = req.body;
 
       // Initialize EmailJS with your User ID (replace with your actual key)
