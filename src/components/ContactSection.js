@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Phone, Mail, MapPin, ArrowRight } from 'lucide-react';
+import { Phone, Mail, MapPin, Send, ArrowRight } from 'lucide-react';
 import './ContactSection.css'
 
 const ContactSection = () => {
@@ -77,7 +77,7 @@ const ContactSection = () => {
     setIsSubmitting(true);
   
     try {
-      // Call the serverless API to send the message
+      // Call the Vercel serverless function to send the message
       const response = await fetch('/api/contact', {
         method: 'POST',
         headers: {
@@ -249,7 +249,7 @@ const ContactSection = () => {
 
               <div className="availability">
                 <div className="status-indicator"></div>
-                <p>Available every day from 4:00 AM to 11:00 PM</p>
+                <p>Available every day from 4:00 AM to 3:00 PM UTC.</p>
               </div>
             </div>
           </div>
