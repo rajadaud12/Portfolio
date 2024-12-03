@@ -62,54 +62,57 @@ const ContactSection = () => {
   };
 
   // Handle form submission
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-  
-    // Reset previous submission status
-    setSubmitStatus(null);
-  
-    // Validate form
-    if (!validateForm()) {
-      return;
-    }
-  
-    // Start submission process
-    setIsSubmitting(true);
-  
-    try {
-      // Call the Vercel serverless function to send the message
-      const response = await fetch('/api/contact', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
+  // In your React component
+
+const handleSubmit = async (e) => {
+  e.preventDefault();
+
+  // Reset previous submission status
+  setSubmitStatus(null);
+
+  // Validate form
+  if (!validateForm()) {
+    return;
+  }
+
+  // Start submission process
+  setIsSubmitting(true);
+
+  try {
+    // Call the Vercel serverless function to send the message
+    const response = await fetch('/api/contact', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(formData),
+    });
+
+    if (response.ok) {
+      // Success
+      setSubmitStatus('success');
+
+      // Reset form
+      setFormData({
+        firstName: '',
+        lastName: '',
+        email: '',
+        message: ''
       });
-  
-      if (response.ok) {
-        // Success
-        setSubmitStatus('success');
-  
-        // Reset form
-        setFormData({
-          firstName: '',
-          lastName: '',
-          email: '',
-          message: ''
-        });
-      } else {
-        // Error from server
-        setSubmitStatus('error');
-      }
-    } catch (error) {
-      // Network or other errors
-      console.error('Submission error:', error);
+    } else {
+      // Error from server
       setSubmitStatus('error');
-    } finally {
-      // Always stop submitting
-      setIsSubmitting(false);
     }
-  };
+  } catch (error) {
+    // Network or other errors
+    console.error('Submission error:', error);
+    setSubmitStatus('error');
+  } finally {
+    // Always stop submitting
+    setIsSubmitting(false);
+  }
+};
+
   
   return (
     <div className='contact-section-container'>
