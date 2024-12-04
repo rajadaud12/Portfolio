@@ -80,7 +80,7 @@ const handleSubmit = async (e) => {
 
   try {
     // Call the Vercel serverless function to send the message
-    const response = await fetch('/api/contact', {
+    const response = await fetch('https://daudbinnasar.vercel.app/api/contact', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
