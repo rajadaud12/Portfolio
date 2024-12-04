@@ -1,31 +1,54 @@
-import * as emailjs from 'emailjs-com';
+import emailjs from 'emailjs-com';
 
 export default async function handler(req, res) {
-  if (req.method === 'POST') {
-    try {
-      // Parse form data from the request body
-      const { firstName, lastName, email, message } = req.body;
+  // Enable CORS
+  res.setHeader('Access-Control-Allow-Credentials', true);
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,PATCH,DELETE,POST,PUT');
+  res.setHeader(
+    'Access-Control-Allow-Headers',
+    'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version'
+  );
 
-      // Initialize EmailJS with your User ID (replace with your actual key)
-      const userID = 'tv-OcNHlbcpz5kOHeCeDM'; // Replace with your EmailJS user ID
-      const serviceID = 'service_azaq1hi'; // Replace with your EmailJS service ID
-      const templateID = 'template_elc7ftf'; // Replace with your EmailJS template ID
+  // Handle OPTIONS request for CORS preflight
+  if (req.method === 'OPTIONS') {
+    res.status(200).end();
+    return;
+  }
 
-      // Send email via EmailJS
-      await emailjs.send(serviceID, templateID, {
-        first_name: firstName,
-        last_name: lastName,
-        email: email,
-        message: message,
-      }, userID);
-
-      // Respond with success
-      res.status(200).json({ message: 'Email sent successfully' });
-    } catch (error) {
-      console.error('Error sending email:', error);
-      res.status(500).json({ error: 'Failed to send email' });
-    }
-  } else {
+  // Only allow POST requests
+  if (req.method !== 'POST') {
     res.status(405).json({ error: 'Method Not Allowed' });
+    return;
+  }
+
+  try {
+    // Initialize EmailJS with your User ID (replace with your actual keys)
+    const userID = 'tv-OcNHlbcpz5kOHeCeDM';
+    const serviceID = 'service_azaq1hi';
+    const templateID = 'template_elc7ftf';
+
+    // Parse form data from the request body
+    const { firstName, lastName, email, message } = req.body;
+
+    // Validate input
+    if (!firstName || !lastName || !email || !message) {
+      res.status(400).json({ error: 'Missing required fields' });
+      return;
+    }
+
+    // Send email via EmailJS
+    const response = await emailjs.send(serviceID, templateID, {
+      first_name: firstName,
+      last_name: lastName,
+      email: email,
+      message: message,
+    }, userID);
+
+    // Respond with success
+    res.status(200).json({ message: 'Email sent successfully', response });
+  } catch (error) {
+    console.error('Error sending email:', error);
+    res.status(500).json({ error: 'Failed to send email', details: error.message });
   }
 }
