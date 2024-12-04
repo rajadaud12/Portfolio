@@ -16,11 +16,7 @@ export default async function handler(req, res) {
     return;
   }
 
-  // Only allow POST requests
-  if (req.method !== 'POST') {
-    res.status(405).json({ error: 'Method Not Allowed' });
-    return;
-  }
+  
 
   try {
     // Initialize EmailJS with your User ID (replace with your actual keys)
